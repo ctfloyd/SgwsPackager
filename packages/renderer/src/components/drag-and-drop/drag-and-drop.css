@@ -1,0 +1,160 @@
+@import '~/@fontsource/roboto/index.css';
+
+#circle {
+    height: 250px;
+    width: 250px;
+    background-color: rgb(206, 205, 205);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+
+#arrow {
+    z-index: 100;
+    align-self: center;
+}
+
+#rectangle {
+    height: 60px;
+    width: 45px;
+    background-color: rgb(148, 148, 148);
+    display: block;
+    margin: 0 auto;
+}
+
+#triangle {
+    width: 0;
+    height: 0;
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    border-bottom: 45px solid rgb(148, 148, 148);
+    display: block;
+}
+
+#arrow-underline {
+    width: 90px;
+    height: 15px;
+    background-color: rgb(148, 148, 148);
+    display: block;
+    margin-top: 20px;
+    z-index: 200;
+}
+
+#dnd-prompt {
+    font-size: 20px;
+    text-align: center;
+}
+
+#drag-and-drop-widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+#drag-and-drop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-animation {
+    animation-duration: 300ms;
+    animation-timing-function: ease;
+    transform-origin: bottom center;
+    animation-fill-mode: forwards;
+}
+
+.shrink-and-squash-animation[state='in'] {
+    animation-name: shrink-and-squash;
+}
+
+.shrink-and-squash-animation[state='out'] {
+    animation-name: unshrink-and-unsquash;
+}
+
+.move-vertically-animation[state='in'] {
+    animation-name: go-down;
+}
+
+.move-vertically-animation[state='out'] {
+    animation-name: go-up;
+}
+
+@keyframes shrink-and-squash {
+    from {
+        transform: translateY(0px) scale(1, 1);
+    }
+    to {
+        transform: translateY(20%) scale(1.375, 0.375)
+    }
+}
+
+@keyframes unshrink-and-unsquash {
+    from {
+        transform: translateY(20%) scale(1.375, 0.375)
+    }
+    to {
+        transform: translateY(0px) scale(1, 1);
+    }
+
+}
+
+@keyframes go-down {
+    from {
+        transform: translateY(0%);
+    }
+    to {
+        transform: translateY(111%);
+    }
+}
+
+@keyframes go-up {
+    from {
+        transform: translateY(111%);
+    }
+    to {
+        transform: translateY(0px);
+    }
+}
+
+.text {
+    font-family: 'Roboto';
+}
+
+.warning {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+
+.button {
+    width: 50%;
+    height: 30px;
+    background-color: rgb(6, 95, 212);
+    color: white;
+    cursor: pointer;
+    margin-top: 2%;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px;
+    vertical-align: middle;
+    box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-self: center;
+}
+
+.button:hover {
+    background-color: rgb(3, 56, 126);
+}

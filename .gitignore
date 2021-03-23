@@ -1,0 +1,6 @@
+package-lock.json
+.vscode
+buildResources
+node_modules
+dist
+*.xlsx
