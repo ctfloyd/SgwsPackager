@@ -49,11 +49,6 @@ jobs:
 
       - run: npm run buildEnvTypes
 
-      # Type checking is divided into three separate commands for more convenient logs
-      - run: npm run typecheck-main
-      - run: npm run typecheck-preload
-      - run: npm run typecheck-renderer
-
   test:
     strategy:
       matrix:
@@ -71,7 +66,6 @@ jobs:
       - run: npm test
 
   draft_release:
-    needs: [ test, lint, typechecking ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
