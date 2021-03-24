@@ -48,7 +48,7 @@ jobs:
 
       - name: Concat Final Version
         id: final-version
-        run: echo ::set-output name=version::${{steps.get-branch.outputs.branch}}-v${{steps.version.outputs.current-version}}
+        run: echo ::set-output name=version::v${{steps.version.outputs.current-version}}-${{steps.get-branch.outputs.branch}}
 
       - name: Delete outdated drafts
         uses: hugo19941994/delete-draft-releases@v0.1.0

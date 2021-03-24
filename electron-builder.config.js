@@ -19,8 +19,11 @@ const config = {
   win: {
     target: 'portable'
   },
+  mac: {
+    target: 'dmg'
+  },
   appId: "com.electron.sgwsdataformatter",
-  productName:" SGWS Data Formatter",
+  productName: "SGWS Data Formatter",
 }
 
 module.exports = config
