@@ -42,14 +42,6 @@ jobs:
         id: version
         run: echo ::set-output name=current-version::"$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
       
-      - name: Get branch
-        id: get-branch
-        run: echo ::set-output name=branch::${GITHUB_REF#refs/*/}
-
-      - name: Concat Final Version
-        id: final-version
-        run: echo ::set-output name=version::v${{steps.version.outputs.current-version}}-${{steps.get-branch.outputs.branch}}
-
       - name: Delete outdated drafts
         uses: hugo19941994/delete-draft-releases@v0.1.0
         env:
@@ -61,8 +53,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
           draft: true
-          tag_name: ${{ steps.final-version.outputs.version }}
-          release_name: ${{ steps.final-version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.current-version }}
+          release_name: ${{ steps.version.outputs.current-version }}
           body: Release
 
   compile:
