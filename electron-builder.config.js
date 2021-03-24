@@ -1,4 +1,8 @@
+const { execSync } = require('child_process');
+
 const now = new Date
+
+const branch = execSync('git branch --show-current').toString().trim();
 const buildVersion = `${now.getFullYear() - 2000}.${now.getMonth() + 1}.${now.getDate()}`
 
 /**
@@ -14,7 +18,7 @@ const config = {
     'packages/**/dist/**',
   ],
   extraMetadata: {
-    version: buildVersion,
+    version: `${buildVersion}-${branch}`,
   },
   win: {
     target: 'portable'
