@@ -2,7 +2,7 @@ name: CI/CD
 on:
   push:
     branches:
-      - main
+      - !main
     paths-ignore:
       - '**.md'
       - '.idea'
@@ -23,7 +23,7 @@ defaults:
 
 jobs:
   draft_release:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
       changelog: ${{ steps.changelog.outputs.changelog }}
@@ -67,9 +67,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ windows-latest ]
-    #    To compile the application for different platforms, use:
-    #    os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [ windows-latest, macos-latest, ubuntu-latest ]
 
     runs-on: ${{ matrix.os }}
 
@@ -81,15 +79,6 @@ jobs:
 
       # TODO: Install not all dependencies, but only those required for this job
       - run: npm ci
-
-      # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
-      # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
-      - name: Prepare release notes
-        env:
-          RELEASE_NOTES: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
-        run: |
-          mkdir -p buildResources
-          echo "$RELEASE_NOTES" > buildResources/release-notes.md
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1

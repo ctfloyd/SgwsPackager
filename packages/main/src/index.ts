@@ -5,7 +5,7 @@ import path from 'path';
 import { URL } from 'url';
 import executeProcess from '../../process.js';
 
-const isDevelopment = process.env.MODE !== 'production';
+const isDevelopment = process.env['MODE'] === 'development';
 
 let mainWindow: BrowserWindow;
 
