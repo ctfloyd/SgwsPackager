@@ -57,7 +57,9 @@ const dragAndDrop = () => {
     }
 
     window.api.on(IpcEvents.RESPONSE_SHOW_OPEN_DIALOG, (data: any) => {
-        setFilePath(data.filePaths[0]);
+        if(data && data.filePaths && data.filepaths.length && data.filepaths.length > 0) {
+            setFilePath(data.filePaths[0]);
+        }
     });
 
     window.api.on(IpcEvents.RESPONSE_PATH_BASENAME, (filePath: string) => {
