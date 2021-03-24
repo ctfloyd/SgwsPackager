@@ -28,8 +28,6 @@ jobs:
   draft_release:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    outputs:
-      changelog: ${{ steps.changelog.outputs.changelog }}
 
     steps:
       - uses: actions/checkout@v2
@@ -42,7 +40,15 @@ jobs:
 
       - name: Get version from current date
         id: version
-        run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
+        run: echo ::set-output name=current-version::"$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
+      
+      - name: Get branch
+        id: get-branch
+        run: echo ::set-output name=branch::${GITHUB_REF##/*}
+
+      - name: Concat Final Version
+        id: final-version
+        run: echo ::set-output name=version::${{steps.get-branch.ouputs.branch}}-v${{steps.version.outputs.version}}
 
       - name: generate-changelog-action
         uses: ScottBrenner/generate-changelog-action@1.0.3
@@ -61,16 +67,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
           draft: true
-          tag_name: v${{ steps.version.outputs.current-version }}
-          release_name: v${{ steps.version.outputs.current-version }}
-          body: ${{ steps.changelog.outputs.changelog }}
+          tag_name: v${{ steps.final-version.outputs.version }}
+          release_name: v${{ steps.final-version.outputs.version }}
+          body: Release
 
   compile:
     needs: [ draft_release ]
 
     strategy:
       matrix:
-        os: [ windows-latest, macos-latest, ubuntu-latest ]
+        os: [ windows-latest, macos-latest ]
 
     runs-on: ${{ matrix.os }}
 
