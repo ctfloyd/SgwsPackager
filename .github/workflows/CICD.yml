@@ -5,7 +5,7 @@ on:
       - '*'
       - '*/'
       - '**'
-      - !main
+      - '!main'
     paths-ignore:
       - '**.md'
       - '.idea'
