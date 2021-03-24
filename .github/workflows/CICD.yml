@@ -48,7 +48,7 @@ jobs:
 
       - name: Concat Final Version
         id: final-version
-        run: echo ::set-output name=version::${{steps.get-branch.ouputs.branch}}-v${{steps.version.outputs.version}}
+        run: echo ::set-output name=version::${{steps.get-branch.outputs.branch}}-v${{steps.version.outputs.version}}
 
       - name: generate-changelog-action
         uses: ScottBrenner/generate-changelog-action@1.0.3
