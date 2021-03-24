@@ -18,6 +18,10 @@ const config = {
   },
   win: {
     target: 'portable'
+  },
+  build: {
+    appId: 'com.electron.sgwsdataformatter',
+    productName: 'SGWS Data Formatter'
   }
 }
 

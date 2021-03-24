@@ -1,5 +1,10 @@
 {
-  "name": "SGWS Data Foramtter",
+  "name": "sgws-data-formatter",
+  "description": "A portable applicatoin used to bundle packages that work with transforming data",
+  "author": {
+    "name": "Caleb Floyd",
+    "email": "ctfloyd@wisc.edu"
+  },
   "private": true,
   "engines": {
     "node": ">=v14.16.0",
