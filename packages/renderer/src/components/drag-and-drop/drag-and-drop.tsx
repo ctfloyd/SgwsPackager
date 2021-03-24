@@ -57,7 +57,8 @@ const dragAndDrop = () => {
     }
 
     window.api.on(IpcEvents.RESPONSE_SHOW_OPEN_DIALOG, (data: any) => {
-        if(data && data.filePaths && data.filepaths.length && data.filepaths.length > 0) {
+        console.log(data);
+        if(data && data.filePaths && data.filePaths.length && data.filePaths.length > 0) {
             setFilePath(data.filePaths[0]);
         }
     });
