@@ -5,6 +5,7 @@
     "name": "Caleb Floyd",
     "email": "ctfloyd@wisc.edu"
   },
+  "version": "1.0.0",
   "private": true,
   "engines": {
     "node": ">=v14.16.0",
