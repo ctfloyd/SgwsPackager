@@ -8,8 +8,8 @@ const execute = async (path) => {
     const workbook = new ExcelJS.Workbook();
     await workbook.xlsx.readFile(path);
 
-    const sheet = workbook.getWorksheet('Point Data Dump');
-    const rows = sheet.getRows(3, sheet.rowCount).filter(row => row.values[1]);
+    const sheet = workbook.getWorksheet('Sheet1');
+    const rows = sheet.getRows(2, sheet.rowCount).filter(row => row.values[1]);
     const ACTIVITY_INDEX = 9;
 
     rows.forEach((row, index) => { 
@@ -22,27 +22,25 @@ const execute = async (path) => {
 
         activities.forEach((activity, act_idx) => {
             if(act_idx == 0) {
-                const row = sheet.getRow(index + 3);
-                row.values[ACTIVITY_INDEX] = activity;
+                const row = sheet.getRow(index + 2);
                 row.getCell(ACTIVITY_INDEX).value = activity;
                 row.commit();
                 return;
             } 
 
-            console.log('duplicating at: ', index + 3);
-            sheet.duplicateRow(index + 3, 1, true)
-            const row = sheet.getRow(index + 3);
+            sheet.duplicateRow(index + 2, 1, true)
+            const row = sheet.getRow(index + 2);
             row.getCell(ACTIVITY_INDEX).value = activity;
             row.commit();
 
         });
     });
 
-    sheet.getRows(3, sheet.rowCount).forEach((updateRow, index) => {
-        const updatedFormula = `=SUM(M${index + 3}:P${index + 3})`
-        updateRow.getCell('Q').value = { formula: updatedFormula };
-        updateRow.commit();
-    });
+    // sheet.getRows(3, sheet.rowCount).forEach((updateRow, index) => {
+    //     const updatedFormula = `=SUM(M${index + 3}:P${index + 3})`
+    //     updateRow.getCell('Q').value = { formula: updatedFormula };
+    //     updateRow.commit();
+    // });
 
     await workbook.xlsx.write(fs.createWriteStream(path));
 }
